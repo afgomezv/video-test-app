@@ -8,10 +8,10 @@ import { Button, Image, Input } from "@nextui-org/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 //* Interface and Icons
-import { IUser } from "../../interfaces";
+import { IRegister } from "../../interfaces";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-export const Login = () => {
+export const Register = () => {
   const [isShow, setIsShow] = useState(false);
 
   const onToggleShow = () => setIsShow(!isShow);
@@ -19,10 +19,11 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm<IUser>();
+  } = useForm<IRegister>();
 
-  const onSubmit: SubmitHandler<IUser> = (data) => {
+  const onSubmit: SubmitHandler<IRegister> = (data) => {
     console.log(data);
   };
 
@@ -34,7 +35,7 @@ export const Login = () => {
             isBlurred
             isZoomed
             width={900}
-            src="https://i.ibb.co/zGS8dL2/login.jpg"
+            src="https://i.ibb.co/8Nvh3hM/register.jpg"
           />
         </section>
         <section className="sm:w-1/2 h-full p-4">
@@ -96,12 +97,41 @@ export const Login = () => {
                 </button>
               }
             />
+            {/* Password Confirmation */}
+            <Input
+              type={isShow ? "text" : "password"}
+              variant="bordered"
+              label="Contraseña"
+              color={!errors.passwordTwo ? "secondary" : "danger"}
+              isInvalid={!errors.passwordTwo ? false : true}
+              errorMessage={
+                !errors.passwordTwo ? "" : `${errors.passwordTwo?.message}`
+              }
+              {...register("passwordTwo", {
+                required: {
+                  value: true,
+                  message: "La contraseña es requerida",
+                },
+                validate: (value) =>
+                  value === watch("password") || "Las contraseñas no coinciden",
+              })}
+              endContent={
+                <button
+                  className="focus:outline-none pb-1 text-2xl text-default-400"
+                  type="button"
+                  onClick={onToggleShow}
+                >
+                  {isShow ? <FaEye /> : <FaEyeSlash />}
+                </button>
+              }
+            />
+            {/* Submit button */}
             <Button
               type="submit"
               className="capitalize text-lg"
               color="secondary"
             >
-              sing in
+              Register
             </Button>
           </form>
         </section>
