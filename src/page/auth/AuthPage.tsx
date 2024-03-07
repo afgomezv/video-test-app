@@ -1,3 +1,9 @@
+import { Login } from "../../components";
+
 export function AuthPage() {
-  return <div>AuthPage</div>;
+  return (
+    <>
+      <Login />
+    </>
+  );
 }

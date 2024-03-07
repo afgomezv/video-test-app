@@ -2,10 +2,10 @@
 import { createBrowserRouter } from "react-router-dom";
 
 //* Page
-import { HomePage, AuthPage } from "../page";
+import { AuthPage, HomePage } from "../page";
 
 //* Layaout
-import { AuthLayout, NavbarLayout } from "../layouts";
+import { NavbarLayout } from "../layouts";
 
 //* Root
 import Root from "../Root";
@@ -27,13 +27,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <AuthLayout />,
-        children: [
-          {
-            path: "",
-            element: <AuthPage />,
-          },
-        ],
+        element: <AuthPage />,
       },
     ],
   },
