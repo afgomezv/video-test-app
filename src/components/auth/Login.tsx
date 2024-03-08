@@ -1,8 +1,11 @@
-//* React
-import { useState } from "react";
+//* React Router Dom
+import { useNavigate } from "react-router-dom";
+
+//* Hooks
+import { useAuth, useMessage, useShow } from "../../hooks";
 
 //* NextUI
-import { Button, Image, Input } from "@nextui-org/react";
+import { Button, Image, Input, Link } from "@nextui-org/react";
 
 //* React-Hook-Form
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -12,9 +15,11 @@ import { IUser } from "../../interfaces";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const Login = () => {
-  const [isShow, setIsShow] = useState(false);
+  const { isShow, onToggleShow } = useShow();
+  const { successLogin, errorLogin } = useMessage();
+  const { login } = useAuth();
 
-  const onToggleShow = () => setIsShow(!isShow);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -22,8 +27,16 @@ export const Login = () => {
     formState: { errors },
   } = useForm<IUser>();
 
-  const onSubmit: SubmitHandler<IUser> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IUser> = async (data) => {
+    try {
+      await login(data.email, data.password);
+      setTimeout(() => {
+        navigate("/home");
+      }, 500);
+    } catch (error) {
+      errorLogin();
+      console.error(error);
+    }
   };
 
   return (
@@ -80,11 +93,6 @@ export const Login = () => {
                   value: true,
                   message: "La contraseña es requerida",
                 },
-                pattern: {
-                  value: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,12}$/,
-                  message:
-                    "La contraseña debe tener  entre 8 y 12 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula",
-                },
               })}
               endContent={
                 <button
@@ -104,6 +112,12 @@ export const Login = () => {
               sing in
             </Button>
           </form>
+          <p className="pt-4 text-center text-lg">
+            ¿No tienes cuenta?{" "}
+            <Link className="text-lg font-semibold" href="/register">
+              Registrate
+            </Link>
+          </p>
         </section>
       </div>
     </div>

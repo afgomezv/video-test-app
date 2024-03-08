@@ -1,8 +1,11 @@
-//* React
-import { useState } from "react";
+//* React Router Dom
+import { useNavigate } from "react-router-dom";
+
+//* Hooks
+import { useAuth, useMessage, useShow } from "../../hooks/";
 
 //* NextUI
-import { Button, Image, Input } from "@nextui-org/react";
+import { Button, Image, Input, Link } from "@nextui-org/react";
 
 //* React-Hook-Form
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -12,9 +15,11 @@ import { IRegister } from "../../interfaces";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const Register = () => {
-  const [isShow, setIsShow] = useState(false);
+  const { isShow, isShowTwo, onToggleShow, onToggleShowTwo } = useShow();
+  const { succeessRegister } = useMessage();
+  const { singup } = useAuth();
 
-  const onToggleShow = () => setIsShow(!isShow);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -23,8 +28,16 @@ export const Register = () => {
     formState: { errors },
   } = useForm<IRegister>();
 
-  const onSubmit: SubmitHandler<IRegister> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IRegister> = async (data) => {
+    try {
+      await singup(data.email, data.password);
+      setTimeout(() => {
+        succeessRegister();
+        navigate("/home");
+      }, 500);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -39,12 +52,12 @@ export const Register = () => {
           />
         </section>
         <section className="sm:w-1/2 h-full p-4">
-          <h2 className="text-3xl text-center font-bold text-purple-500 px-4 py-8 mb-10 capitalize">
+          <h2 className="text-3xl text-center font-bold text-purple-500 px-4 py-8 mb-4 capitalize">
             Welcome
           </h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-full flex flex-col justify-center gap-10"
+            className="w-full flex flex-col justify-center gap-8"
           >
             {/* Email */}
             <Input
@@ -99,7 +112,7 @@ export const Register = () => {
             />
             {/* Password Confirmation */}
             <Input
-              type={isShow ? "text" : "password"}
+              type={isShowTwo ? "text" : "password"}
               variant="bordered"
               label="Contraseña"
               color={!errors.passwordTwo ? "secondary" : "danger"}
@@ -119,9 +132,9 @@ export const Register = () => {
                 <button
                   className="focus:outline-none pb-1 text-2xl text-default-400"
                   type="button"
-                  onClick={onToggleShow}
+                  onClick={onToggleShowTwo}
                 >
-                  {isShow ? <FaEye /> : <FaEyeSlash />}
+                  {isShowTwo ? <FaEye /> : <FaEyeSlash />}
                 </button>
               }
             />
@@ -131,9 +144,15 @@ export const Register = () => {
               className="capitalize text-lg"
               color="secondary"
             >
-              Register
+              register
             </Button>
           </form>
+          <p className="pt-4 text-center text-lg">
+            ¿Ya tienes cuenta?{" "}
+            <Link className="text-lg font-semibold" href="/login">
+              Ingresar
+            </Link>
+          </p>
         </section>
       </div>
     </div>
