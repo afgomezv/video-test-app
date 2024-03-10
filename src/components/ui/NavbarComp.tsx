@@ -5,6 +5,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -30,10 +31,12 @@ export const NavbarComp = () => {
   };
 
   return (
-    <Navbar className="bg-[#F2F3F4]">
-      <NavbarBrand className="text-2xl">
-        <PiFilmSlateDuotone className="text-purple-500 text-4xl" />
-        <p className="font-bold ml-2">Skills Up</p>
+    <Navbar className="bg-gray-200 shadow">
+      <NavbarBrand>
+        <Link href="/home">
+          <PiFilmSlateDuotone className="text-purple-500 text-4xl" />
+          <p className="text-2xl font-bold ml-2">Skills Up</p>
+        </Link>
       </NavbarBrand>
       <NavbarContent as="div" justify="end">
         <NavbarItem className="text-xl font-semibold">{user?.email}</NavbarItem>

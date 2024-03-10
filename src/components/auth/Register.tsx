@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 
 //* Hooks
-import { useAuth, useMessage, useShow } from "../../hooks/";
+import { useAuth, useShow } from "../../hooks/";
 
 //* NextUI
 import { Button, Image, Input, Link } from "@nextui-org/react";
@@ -16,7 +16,6 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const Register = () => {
   const { isShow, isShowTwo, onToggleShow, onToggleShowTwo } = useShow();
-  const { succeessRegister } = useMessage();
   const { singup } = useAuth();
 
   const navigate = useNavigate();
@@ -32,7 +31,6 @@ export const Register = () => {
     try {
       await singup(data.email, data.password);
       setTimeout(() => {
-        succeessRegister();
         navigate("/home");
       }, 500);
     } catch (error) {

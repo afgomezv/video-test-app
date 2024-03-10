@@ -2,7 +2,13 @@
 import { createBrowserRouter } from "react-router-dom";
 
 //* Page
-import { AuthPage, HomePage, RegisterPage } from "../page";
+import {
+  AuthPage,
+  CategoryPage,
+  DetailPage,
+  HomePage,
+  RegisterPage,
+} from "../page";
 
 //* Layaout
 import { NavbarLayout } from "../layouts";
@@ -23,8 +29,17 @@ export const router = createBrowserRouter([
             path: "",
             element: <HomePage />,
           },
+          {
+            path: ":path",
+            element: <CategoryPage />,
+          },
+          {
+            path: ":path/:id",
+            element: <DetailPage />,
+          },
         ],
       },
+
       {
         path: "login",
         element: <AuthPage />,

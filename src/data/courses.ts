@@ -1,0 +1,78 @@
+export const bussines = [
+  {
+    id: 1,
+    title: "gestión empresarial",
+    content: "",
+    chapter: 10,
+    score: 4.8,
+    image: "https://i.ibb.co/YtJ2kGL/course4.jpg",
+    path: "bussines",
+  },
+  {
+    id: 2,
+    title: "marketing digital",
+    content: "",
+    chapter: 12,
+    score: 4.7,
+    image: "https://i.ibb.co/YtJ2kGL/course4.jpg",
+  },
+  {
+    id: 3,
+    title: "finanzas personales",
+    content: "",
+    chapter: 15,
+    score: 4.6,
+    image: "https://i.ibb.co/YtJ2kGL/course4.jpg",
+  },
+  {
+    id: 4,
+    title: "estrategia de ventas",
+    content: "",
+    chapter: 11,
+    score: 4.4,
+    image: "https://i.ibb.co/YtJ2kGL/course4.jpg",
+  },
+];
+
+export const designs = [
+  {
+    id: 1,
+    title: "diseño grafico",
+    content: "",
+    chapter: 15,
+    score: 4.9,
+    image: "https://i.ibb.co/C8mWB8h/course5.jpg",
+  },
+  {
+    id: 2,
+    title: "fotografia",
+    content: "",
+    chapter: 13,
+    score: 4.7,
+    image: "https://i.ibb.co/C8mWB8h/course5.jpg",
+  },
+  {
+    id: 3,
+    title: "edición dd video",
+    content: "",
+    chapter: 18,
+    score: 4.5,
+    image: "https://i.ibb.co/C8mWB8h/course5.jpg",
+  },
+  {
+    id: 4,
+    title: "ilustracion digital",
+    content: "",
+    chapter: 16,
+    score: 4.6,
+    image: "https://i.ibb.co/C8mWB8h/course5.jpg",
+  },
+  {
+    id: 5,
+    title: "diseño de productos",
+    content: "",
+    chapter: 14,
+    score: 4.9,
+    image: "https://i.ibb.co/C8mWB8h/course5.jpg",
+  },
+];

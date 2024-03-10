@@ -8,7 +8,7 @@ export default function Root() {
   }
 
   return (
-    <main>
+    <main className="bg-slate-50 h-screen">
       <Outlet />
     </main>
   );
