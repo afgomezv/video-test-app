@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 
 //* Hooks
-import { useAuth, useShow } from "../../hooks";
+import { useAuth, useMessage, useShow } from "../../hooks";
 
 //* NextUI
 import { Button, Image, Input, Link } from "@nextui-org/react";
@@ -16,6 +16,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const Login = () => {
   const { isShow, onToggleShow } = useShow();
+  const { successLogin, errorLogin } = useMessage();
   const { user, login } = useAuth();
 
   const navigate = useNavigate();
@@ -23,16 +24,19 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IUser>();
 
   const onSubmit: SubmitHandler<IUser> = async (data) => {
     try {
       await login(data.email, data.password);
-      if (user) {
-        setTimeout(() => {
-          navigate("/home");
-        }, 500);
+      if (user !== null) {
+        successLogin();
+        navigate("/home");
+      } else {
+        errorLogin();
+        reset();
       }
     } catch (error) {
       console.error(error);

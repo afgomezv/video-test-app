@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 
 //* Hooks
-import { useAuth, useShow } from "../../hooks/";
+import { useAuth, useMessage, useShow } from "../../hooks/";
 
 //* NextUI
 import { Button, Image, Input, Link } from "@nextui-org/react";
@@ -16,7 +16,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const Register = () => {
   const { isShow, isShowTwo, onToggleShow, onToggleShowTwo } = useShow();
-  const { singup } = useAuth();
+  const { succeessRegister, errorRegister } = useMessage();
+  const { user, singup } = useAuth();
 
   const navigate = useNavigate();
 
@@ -24,15 +25,20 @@ export const Register = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<IRegister>();
 
   const onSubmit: SubmitHandler<IRegister> = async (data) => {
     try {
       await singup(data.email, data.password);
-      setTimeout(() => {
+      if (user !== null) {
+        succeessRegister();
         navigate("/home");
-      }, 500);
+      } else {
+        errorRegister();
+        reset();
+      }
     } catch (error) {
       console.error(error);
     }
